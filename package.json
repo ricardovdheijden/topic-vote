@@ -1,0 +1,19 @@
+{
+  "name": "topic-vote",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ricardovdheijden/topic-vote.git"
+  },
+  "author": "Ricardo van der Heijden",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ricardovdheijden/topic-vote/issues"
+  },
+  "homepage": "https://github.com/ricardovdheijden/topic-vote#readme"
+}
