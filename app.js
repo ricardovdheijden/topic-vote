@@ -2,8 +2,9 @@ var express = require('express');
 var app = express();
 var port = 3000;
 
-// Making the content of "/public/" folder available as "localhost:3000/" to serve static files
+// Making the content of specific folders available to serve static files
 app.use('/', express.static(__dirname + '/public/'));
+app.use('/vendor/angular', express.static(__dirname + '/node_modules/angular/'));
 
 // Mapping "/api/hello" to respond with a function
 app.get('/api/hello', function(req, res) {

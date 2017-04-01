@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ricardovdheijden/topic-vote#readme",
   "dependencies": {
+    "angular": "^1.6.4",
     "express": "^4.15.2"
   }
 }
