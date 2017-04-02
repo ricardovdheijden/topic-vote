@@ -1,12 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="topicVote">
 	<head>
 		<title>Topic Vote</title>
 	</head>
 	<body>
-		<h1>Topic Vote</h1>
-		<a href="/api/hello">Test API</a>
-
+		<div ng-controller="topicVoteController as topicVoteCtrl">
+			<h1>Topic Vote</h1>
+			<form name="topicCreateFrom" ng-submit="topicVoteCtrl.submitTopic(topic)">
+				<input type="text" ng-model="topic" />
+				<input type="submit" value="Submit" />
+			</form>
+			<table>
+				<tr ng-repeat="topic in topicVoteCtrl.topics">
+					<td>{{topic._id}}</td>
+					<td>{{topic.name}}</td>
+					<td>{{topic.upvotes}}</td>
+					<td>{{topic.downvotes}}</td>
+				</tr>
+			</table>
+		</div>
+		
+		<!-- Including the needed frameworks -->
 		<script src="/vendor/angular/angular.min.js"></script>
+
+		<!-- Including js files containing the application's code -->
+		<script src="app.js"></script>
 	</body>
 </html>
