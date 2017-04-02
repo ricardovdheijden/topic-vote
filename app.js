@@ -5,24 +5,28 @@ var port = 3000;
 var topicRouter = express.Router();
 
 /* 
- * Array with objects, each object is a topic with the name and the score
- * _id:   generated id to identify the post (normally created by mongoDb)
- * name:  the name of the topic
- * score: new posts always have a score of 0
+ * Array with objects, each object is a topic with the name and the upvotes/downvotes
+ * _id:       generated id to identify the post (normally created by mongoDb)
+ * name:      the name of the topic
+ * upvotes:   amount of upvotes
+ * downvotes: amount of downvotes
  */ 
 var topics = [
 	{
 		_id: 0,
 		name: "Topic 1",
-		score: 0
+		upvotes: 0,
+		downvotes: 0
 	}, {
 		_id: 1,
 		name: "Topic 2",
-		score: 0
+		upvotes: 0,
+		downvotes: 0
 	}, {
 		_id: 2,
 		name: "Topic 3",
-		score: 0
+		upvotes: 0,
+		downvotes: 0
 	}
 ];
 var topicIdCounter = 3;
@@ -57,11 +61,12 @@ topicRouter.route('/topics')
 		var topic = {};
 		topic._id = topicIdCounter++;
 		topic.name = req.body.name;
-		topic.score = 0;
+		topic.upvotes = 0;
+		topic.downvotes = 0;
 
 		/*
 		 * Adding the topic object to the collection and returning it as
-		 * reference since _id and score are new fields
+		 * reference since _id, upvotes and downvotes are created by the API
 		 */
 		topics.push(topic);
 		res.status(201).send(topic);
