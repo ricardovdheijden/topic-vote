@@ -10,7 +10,14 @@
 				<input type="text" ng-model="topic" />
 				<input type="submit" value="Submit" />
 			</form>
-			{{topicVoteCtrl.topics}}
+			<table>
+				<tr ng-repeat="topic in topicVoteCtrl.topics">
+					<td>{{topic._id}}</td>
+					<td>{{topic.name}}</td>
+					<td>{{topic.upvotes}}</td>
+					<td>{{topic.downvotes}}</td>
+				</tr>
+			</table>
 		</div>
 		
 		<!-- Including the needed frameworks -->
