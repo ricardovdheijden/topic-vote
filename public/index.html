@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="topicVote">
 	<head>
 		<title>Topic Vote</title>
 	</head>
 	<body>
-		<h1>Topic Vote</h1>
-		<a href="/api/topics">GET Topics</a>
-
+		<div ng-controller="topicVoteController as topicVoteCtrl">
+			<h1>Topic Vote</h1>
+			<a href="/api/topics">GET Topics</a>
+		</div>
+		
+		<!-- Including the needed frameworks -->
 		<script src="/vendor/angular/angular.min.js"></script>
+
+		<!-- Including js files containing the application's code -->
+		<script src="app.js"></script>
 	</body>
 </html>
