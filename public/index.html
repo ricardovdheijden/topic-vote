@@ -6,8 +6,8 @@
 	<body>
 		<div ng-controller="topicVoteController as topicVoteCtrl">
 			<h1>Topic Vote</h1>
-			<form name="topicCreateFrom" ng-submit="topicVoteCtrl.submitTopic(topic)">
-				<input type="text" ng-model="topic" />
+			<form name="topicCreateFrom" ng-submit="topicVoteCtrl.submitTopic(topicVoteCtrl.topic)">
+				<input type="text" ng-model="topicVoteCtrl.topic" />
 				<input type="submit" value="Submit" />
 			</form>
 			<table>
