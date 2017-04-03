@@ -7,11 +7,25 @@ angular.module('topicVote', [])
 
 	/*
 	 * Fetching the topics using a http GET to the api.
-	 * Once the GET went successful the response will be assigned to self.topics
+	 * If the fetch went successful, the response will be assigned to self.topics
+	 * limit (number): limit the amount of results (0 returns all results)
+	 * sortBy (string): sort by the given property of the topics object
+	 * descending (boolean): true (descending), false (ascending), undefined (ascending)
 	 */
-	$http.get('/api/topics').then(function(response) {
-		self.topics = response.data;
-	});
+	self.fetchTopics = function(limit, sortBy, descending) {
+		$http({
+			url: '/api/topics',
+			method: 'GET',
+			params: {
+				limit: limit,
+				sortBy: sortBy,
+				descending: descending
+			}
+		})
+		.then(function(response) {
+			self.topics = response.data;
+		});
+	};
 
 	/*
 	 * This function is invoked when the user presses the submit button.
@@ -25,9 +39,12 @@ angular.module('topicVote', [])
 			var topic = {};
 			topic.name = topicName;
 			$http.post('/api/topics', topic).then(function(response) {
-				self.topics.push(response.data);
 				self.topic = "";
+				self.fetchTopics(20, 'upvotes', true);
 			});
 		}
 	};
+
+	// Initially fetch the topics
+	self.fetchTopics(20, 'upvotes', true);
 }]);
