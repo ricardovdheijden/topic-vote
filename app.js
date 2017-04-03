@@ -48,9 +48,17 @@ app.use('/vendor/angular', express.static(__dirname + '/node_modules/angular/'))
  * Router containing the GET and POST methods for the /topics route
  */
 topicRouter.route('/topics')
+	/*
+	 * GET returns the contents of the topics array and filters beforehand if needed.
+	 * limit: returns the first x topics, where x is the amount specified as 'limit'
+	 */
 	.get(function(req, res) {
-		//Returning the collection of topics as json
-		res.json(topics);
+		if (req.query.limit > 0) {
+			res.json(topics.slice(0, req.query.limit));
+		} else {
+			//Returning the full collection of topics as json
+			res.json(topics);
+		}
 	})
 	.post(function(req, res) {
 		/* 
