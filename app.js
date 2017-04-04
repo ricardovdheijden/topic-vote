@@ -95,10 +95,53 @@ topicRouter.route('/topics')
 		topics.push(topic);
 		res.status(201).send(topic);
 	});
+/*
+ * Router containing the POST method to vote for a topic
+ * _id (number): the id of the topic to vote for
+ * downvote (boolean): adds 1 downvote (true), adds one upvote (false).
+ */
+topicRouter.route('/topics/vote')
+	.post(function(req, res) {
+		var _id = req.body._id;
+		var downvote = req.body.downvote;
+		// Voting for the topic and using the return value to dertermine if the vote was successful
+		if (voteTopic(_id, downvote)) {
+			res.status(201).send();
+		} else {
+			res.status(500).send();
+		}
+	});
 
 // Mapping "/api" before the routers (example: /api/topics)
 app.use('/api', topicRouter);
 
+/*
+ * voteTopic searches for the given 'id' and adds 1 upvote or 1 downvote
+ * id (number): The id of the topic to vote for
+ * downvote (boolean): adds 1 downvote (true), adds one upvote (false or undefined)
+ *
+ * returns (boolean): true (vote succeeded), false (vote failed)
+ */
+var voteTopic = function(id, downvote) {
+	var success = false;
+	topics.find(function(topic) {
+		if (topic._id === id) {
+			if (downvote) topic.downvotes++;
+			else topic.upvotes++;
+			// return value for the voteTopic function: adding was successful
+			success = true;
+			// return value for the array find function: item was found
+			return true;
+		} else {
+			// return value for the array find function: item was not found
+			return false
+		}
+	});
+	// return value for the voteTopic function
+	return success;
+};
+
+// Setting up to listen on the port defined in 'port'
 app.listen(port, function() {
 	console.log('Port: ' + port);
 });
