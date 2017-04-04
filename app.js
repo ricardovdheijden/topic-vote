@@ -93,7 +93,7 @@ topicRouter.route('/topics')
 		 * reference since _id, upvotes and downvotes are created by the API
 		 */
 		topics.push(topic);
-		res.status(201).send(topic);
+		res.status(201).json(topic);
 	});
 /*
  * Router containing the POST method to vote for a topic
@@ -108,7 +108,7 @@ topicRouter.route('/topics/vote')
 		if (voteTopic(_id, downvote)) {
 			res.status(201).send();
 		} else {
-			res.status(500).send();
+			res.status(500).send('topic not found');
 		}
 	});
 
