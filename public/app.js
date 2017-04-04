@@ -38,7 +38,12 @@ angular.module('topicVote', [])
 		if (topicName) {
 			var topic = {};
 			topic.name = topicName;
-			$http.post('/api/topics', topic).then(function(response) {
+			$http({
+				url: '/api/topics',
+				method: 'POST',
+				data: topic
+			})
+			.then(function(response) {
 				self.topic = "";
 				self.fetchTopics(20, 'upvotes', true);
 			});
