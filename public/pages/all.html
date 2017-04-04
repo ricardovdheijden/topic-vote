@@ -1,0 +1,22 @@
+<div ng-controller="topicAllController as topicAllCtrl">
+	<h1>Topic Vote</h1>
+	<form name="topicCreateFrom" ng-submit="topicAllCtrl.submitTopic(topicAllCtrl.topic)">
+		<div ng-if="topicAllCtrl.topicsHttpError.submit">An error occurred while submitting a new topic</div>
+		<input type="text" ng-model="topicAllCtrl.topic" />
+		<input type="submit" value="Submit" />
+	</form>
+	<div ng-if="topicAllCtrl.topicsHttpError.fetch">An error occurred while loading the topics</div>
+	<div ng-if="topicAllCtrl.topicsHttpError.vote">An error occurred while voting for a topic</div>
+	<table>
+		<!-- Looping through all the topics -->
+		<tr ng-repeat="topic in topicAllCtrl.topics">
+			<td>{{topic._id}}</td>
+			<td>{{topic.name}}</td>
+			<td>{{topic.upvotes}}</td>
+			<td>{{topic.downvotes}}</td>
+			<!-- Executes the voteTopic function on click: false = upvote, true = downvote -->
+			<td><a href ng-click="topicAllCtrl.voteTopic(topic._id, false)">Vote Up</a></td>
+			<td><a href ng-click="topicAllCtrl.voteTopic(topic._id, true)">Vote Down</a></td>
+		</tr>
+	</table>
+</div>

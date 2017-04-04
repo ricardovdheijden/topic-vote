@@ -4,33 +4,18 @@
 		<title>Topic Vote</title>
 	</head>
 	<body>
-		<div ng-controller="topicVoteController as topicVoteCtrl">
-			<h1>Topic Vote</h1>
-			<form name="topicCreateFrom" ng-submit="topicVoteCtrl.submitTopic(topicVoteCtrl.topic)">
-				<div ng-if="topicVoteCtrl.topicsHttpError.submit">An error occurred while submitting a new topic</div>
-				<input type="text" ng-model="topicVoteCtrl.topic" />
-				<input type="submit" value="Submit" />
-			</form>
-			<div ng-if="topicVoteCtrl.topicsHttpError.fetch">An error occurred while loading the topics</div>
-			<div ng-if="topicVoteCtrl.topicsHttpError.vote">An error occurred while voting for a topic</div>
-			<table>
-				<!-- Looping through all the topics -->
-				<tr ng-repeat="topic in topicVoteCtrl.topics">
-					<td>{{topic._id}}</td>
-					<td>{{topic.name}}</td>
-					<td>{{topic.upvotes}}</td>
-					<td>{{topic.downvotes}}</td>
-					<!-- Executes the voteTopic function on click: false = upvote, true = downvote -->
-					<td><a href ng-click="topicVoteCtrl.voteTopic(topic._id, false)">Vote Up</a></td>
-					<td><a href ng-click="topicVoteCtrl.voteTopic(topic._id, true)">Vote Down</a></td>
-				</tr>
-			</table>
+		<div>
+			<a href="#!/home">Home</a>
+			<a href="#!/all">All topics</a>
 		</div>
-		
+		<ng-view></ng-view>
+
 		<!-- Including the needed frameworks -->
 		<script src="/vendor/angular/angular.min.js"></script>
+		<script src="/vendor/angular-route/angular-route.min.js"></script>
 
 		<!-- Including js files containing the application's code -->
+		<!--<script src="routes.js"></script>-->
 		<script src="app.js"></script>
 		<script src="services/topics.js"></script>
 	</body>
