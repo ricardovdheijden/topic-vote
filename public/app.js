@@ -50,6 +50,20 @@ angular.module('topicVote', [])
 		}
 	};
 
+	self.voteTopic = function(topicId, downvote) {
+		$http({
+			url: '/api/topics/vote',
+			method: 'POST',
+			data: {
+				_id: topicId,
+				downvote: downvote
+			}
+		})
+		.then(function(response) {
+			self.fetchTopics(20, 'upvotes', true);
+		});
+	}
+
 	// Initially fetch the topics
 	self.fetchTopics(20, 'upvotes', true);
 }]);

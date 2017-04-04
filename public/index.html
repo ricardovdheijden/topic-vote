@@ -11,11 +11,15 @@
 				<input type="submit" value="Submit" />
 			</form>
 			<table>
+				<!-- Looping through all the topics -->
 				<tr ng-repeat="topic in topicVoteCtrl.topics">
 					<td>{{topic._id}}</td>
 					<td>{{topic.name}}</td>
 					<td>{{topic.upvotes}}</td>
 					<td>{{topic.downvotes}}</td>
+					<!-- Executes the voteTopic function on click: false = upvote, true = downvote -->
+					<td><a href ng-click="topicVoteCtrl.voteTopic(topic._id, false)">Vote Up</a></td>
+					<td><a href ng-click="topicVoteCtrl.voteTopic(topic._id, true)">Vote Down</a></td>
 				</tr>
 			</table>
 		</div>
