@@ -50,6 +50,11 @@ angular.module('topicVote', [])
 		}
 	};
 
+	/*
+	 * This function is invoked when the user presses one of the voting links
+	 * topicId (number): the id of the topic where is voted on
+	 * downvote (boolean): passing through if this is a downvote (true) or upvote (false)
+	 */
 	self.voteTopic = function(topicId, downvote) {
 		$http({
 			url: '/api/topics/vote',
