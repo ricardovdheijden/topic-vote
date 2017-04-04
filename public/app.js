@@ -4,6 +4,13 @@ angular.module('topicVote', ['topicsService'])
 	// Initiating variables needed
 	var self = this;
 	self.topics = [];
+	// Setting error variables to false in error object used in html to show errors
+	self.topicsHttpError = {
+		fetch: false,
+		submit: false,
+		vote: false
+	};
+
 
 	/*
 	 * Fetching the topics from the api using the topicsHttp factory
@@ -14,8 +21,13 @@ angular.module('topicVote', ['topicsService'])
 	 * Assuming that fetching does noet fail
 	 */
 	self.fetchTopics = function(limit, sortBy, descending) {
+		self.topicsHttpError.fetch = false;
 		topicsHttp.fetch(limit, sortBy, descending).then(function(response) {
+			// Successful callback
 			self.topics = response.data;
+		}, function() {
+			// In case of an error
+			self.topicsHttpError.fetch = true;
 		});
 	};
 
@@ -29,11 +41,16 @@ angular.module('topicVote', ['topicsService'])
 	 */
 	self.submitTopic = function(topicName) {
 		if (topicName) {
+			self.topicsHttpError.submit = false;
 			var topic = {};
 			topic.name = topicName;
 			topicsHttp.submit(topic).then(function(response) {
+				// Successful callback
 				self.topic = "";
 				self.fetchTopics(20, 'upvotes', true);
+			}, function() {
+				// In case of an error
+				self.topicsHttpError.submit = true;
 			});
 		}
 	};
@@ -45,8 +62,13 @@ angular.module('topicVote', ['topicsService'])
 	 * Assuming that voting does not fail
 	 */
 	self.voteTopic = function(topicId, downvote) {
+		self.topicsHttpError.vote = false;
 		topicsHttp.vote(topicId, downvote).then(function(response) {
+			// Successful callback
 			self.fetchTopics(20, 'upvotes', true);
+		}, function() {
+			// In case of an error
+			self.topicsHttpError.vote = true;
 		});
 	}
 
