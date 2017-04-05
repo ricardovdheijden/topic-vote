@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var port = 3000;
+var port = process.env.PORT || 3000;
 
 /* 
  * Array with objects, each object is a topic with the name and the upvotes/downvotes
