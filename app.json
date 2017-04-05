@@ -1,0 +1,7 @@
+{
+	"name": "topic-vote",
+	"description": "Application to create topics and vote on topics",
+	"repository": "https://github.com/ricardovdheijden/topic-vote",
+	"keywords": ["topic", "vote", "topic-vote"],
+	"image": "heroku/nodejs"
+}
