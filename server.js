@@ -52,6 +52,7 @@ app.use(bodyParser.json());
 app.use('/', express.static(__dirname + '/public/'));
 app.use('/vendor/angular', express.static(__dirname + '/node_modules/angular/'));
 app.use('/vendor/angular-route', express.static(__dirname + '/node_modules/angular-route/'));
+app.use('/vendor/bootstrap', express.static(__dirname + '/node_modules/bootstrap/'));
 
 // Mapping "/api" before the routers (example: /api/topics)
 app.use('/api', topicRouter);
