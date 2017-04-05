@@ -2,19 +2,27 @@
 <html ng-app="topicVote">
 	<head>
 		<title>Topic Vote</title>
+		<link rel="stylesheet" type="text/css" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
 	</head>
 	<body>
-		<div>
-			<a href="#!/home">Home</a>
-			<a href="#!/all">All topics</a>
+		<div class="navbar navbar-default ">
+			<div class="container">
+				<ul class="nav nav-pills">
+					<li><a href="#!/home">Home</a></li>
+					<li><a href="#!/all">All topics</a></li>
+				</ul>
+			</div>
 		</div>
-
-		<!-- Content from the routeprovider (folder: pages/), configuration in app.js -->
-		<ng-view></ng-view>
+		<div class="container">
+			<!-- Content from the routeprovider (folder: pages/), configuration in app.js -->
+			<ng-view></ng-view>
+		</div>
 
 		<!-- Including the needed frameworks -->
 		<script src="/vendor/angular/angular.min.js"></script>
 		<script src="/vendor/angular-route/angular-route.min.js"></script>
+		<script src="/vendor/jquery/dist/jquery.min.js"></script>
+		<script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 
 		<!-- Including js files containing the application's code -->
 		<script src="app.js"></script>
