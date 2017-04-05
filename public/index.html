@@ -8,6 +8,8 @@
 			<a href="#!/home">Home</a>
 			<a href="#!/all">All topics</a>
 		</div>
+
+		<!-- Content from the routeprovider (folder: pages/), configuration in app.js -->
 		<ng-view></ng-view>
 
 		<!-- Including the needed frameworks -->
@@ -15,8 +17,9 @@
 		<script src="/vendor/angular-route/angular-route.min.js"></script>
 
 		<!-- Including js files containing the application's code -->
-		<!--<script src="routes.js"></script>-->
 		<script src="app.js"></script>
+		<script src="components/topic-vote/topic-vote.controller.js"></script>
+		<script src="components/topic-vote/topic-vote.directive.js"></script>
 		<script src="services/topics.js"></script>
 	</body>
 </html>
