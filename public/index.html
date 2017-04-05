@@ -4,26 +4,22 @@
 		<title>Topic Vote</title>
 	</head>
 	<body>
-		<div ng-controller="topicVoteController as topicVoteCtrl">
-			<h1>Topic Vote</h1>
-			<form name="topicCreateFrom" ng-submit="topicVoteCtrl.submitTopic(topicVoteCtrl.topic)">
-				<input type="text" ng-model="topicVoteCtrl.topic" />
-				<input type="submit" value="Submit" />
-			</form>
-			<table>
-				<tr ng-repeat="topic in topicVoteCtrl.topics">
-					<td>{{topic._id}}</td>
-					<td>{{topic.name}}</td>
-					<td>{{topic.upvotes}}</td>
-					<td>{{topic.downvotes}}</td>
-				</tr>
-			</table>
+		<div>
+			<a href="#!/home">Home</a>
+			<a href="#!/all">All topics</a>
 		</div>
-		
+
+		<!-- Content from the routeprovider (folder: pages/), configuration in app.js -->
+		<ng-view></ng-view>
+
 		<!-- Including the needed frameworks -->
 		<script src="/vendor/angular/angular.min.js"></script>
+		<script src="/vendor/angular-route/angular-route.min.js"></script>
 
 		<!-- Including js files containing the application's code -->
 		<script src="app.js"></script>
+		<script src="components/topic-vote/topic-vote.controller.js"></script>
+		<script src="components/topic-vote/topic-vote.directive.js"></script>
+		<script src="services/topics.js"></script>
 	</body>
 </html>
