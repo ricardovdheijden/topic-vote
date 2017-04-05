@@ -6,7 +6,8 @@
 </form>
 <div ng-if="topicVoteCtrl.topicsHttpError.fetch">An error occurred while loading the topics</div>
 <div ng-if="topicVoteCtrl.topicsHttpError.vote">An error occurred while voting for a topic</div>
-<table class="table table-hover">
+<p ng-show="!topicVoteCtrl.topics.length">No topics added yet</p>
+<table class="table table-hover" ng-show="topicVoteCtrl.topics.length">
 	<tr>
 		<th>Topic</th>
 		<th>Upvotes</th>

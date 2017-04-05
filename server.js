@@ -11,30 +11,14 @@ var port = 3000;
  * upvotes:   amount of upvotes
  * downvotes: amount of downvotes
  */ 
-var topics = [
-	{
-		_id: 0,
-		name: "Topic 1",
-		upvotes: 3,
-		downvotes: 0
-	}, {
-		_id: 1,
-		name: "Topic 2",
-		upvotes: 1,
-		downvotes: 0
-	}, {
-		_id: 2,
-		name: "Topic 3",
-		upvotes: 2,
-		downvotes: 0
-	}
-];
+var topics = [];
 
 /*
- * Setting the length of the topics array as counter to have unique _id's created
- * Normally this is handles by a database (mongoDb for example)
+ * Keeping a counter to have a unique _id created for every new topic
+ * Not using array.length because the id won't be unique if some items (not the last one) are deleted
+ * Normally this is handled by a database (mongoDb for example)
  */
-var topicIdCounter = 3;
+var topicIdCounter = 0;
 
 // Importing the topicRouter
 topicRouter = require('./routes/topicRoutes.js')(topics, topicIdCounter);
