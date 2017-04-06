@@ -35,7 +35,11 @@ var routes = function(topics, topicIdCounter) {
 			res.json(topicsResponse);
 		})
 		.post(function(req, res) {
-			// Checks if the length of the input does not exceed 255 characters
+			/*
+			 * Checks if the length of the input does not exceed 255 characters. Even when the fronend is
+			 * checking on length of the input field, it is needed to check also in the api for length
+			 * to be sure only valid data will be stored.
+			 */
 			if (req.body.name.length > 255) {
 				// Responding with error status and message
 				res.status(500).json({
@@ -110,4 +114,5 @@ var routes = function(topics, topicIdCounter) {
 	return topicRouter
 };
 
+// Making the module available for importing
 module.exports = routes;
