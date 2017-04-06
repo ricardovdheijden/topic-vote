@@ -56,6 +56,7 @@ var routes = function(topics, topicIdCounter) {
 				topic.name = req.body.name;
 				topic.upvotes = 0;
 				topic.downvotes = 0;
+				topic.score = 0;
 
 				/*
 				 * Adding the topic object to the collection and returning it as
@@ -100,6 +101,9 @@ var routes = function(topics, topicIdCounter) {
 				else topic.upvotes++;
 				// return value for the voteTopic function: adding was successful
 				success = true;
+				// Calculates the score based on upvotes - downvotes with a lowest score of 0
+				if (topic.upvotes - topic.downvotes > 0) topic.score = topic.upvotes - topic.downvotes;
+				else topic.score = 0;
 				// return value for the array find function: item was found
 				return true;
 			} else {

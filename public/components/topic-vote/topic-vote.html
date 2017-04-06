@@ -9,13 +9,17 @@
 <p ng-show="!topicVoteCtrl.topics.length">No topics added yet</p>
 <table class="table table-hover" ng-show="topicVoteCtrl.topics.length">
 	<tr>
+		<th></th>
+		<th>Score</th>
 		<th>Topic</th>
 		<th>Upvotes</th>
 		<th>Downvotes</th>
 		<th>Vote</th>
 	</tr>
-	<!-- Looping through all the topics -->
+	<!-- Looping through all the topics $index is the current iteration, used for mumbering the rows-->
 	<tr ng-repeat="topic in topicVoteCtrl.topics">
+		<td>{{$index + 1}}</td>
+		<td>{{topic.score}}</td>
 		<td>{{topic.name}}</td>
 		<td>{{topic.upvotes}}</td>
 		<td>{{topic.downvotes}}</td>
