@@ -46,7 +46,8 @@ angular.module('topicVote')
 	 * Assuming that submitting does not fail
 	 */
 	self.submitTopic = function(topicName) {
-		if (topicName) {
+		// Checking if the topic name does not exceed 255 characters
+		if (topicName.length <= 255) {
 			// Resetting error status and errorMessage
 			self.topicsHttpError.submit = false;
 			self.errorMessage = '';
@@ -62,6 +63,10 @@ angular.module('topicVote')
 				self.topicsHttpError.submit = true;
 				self.errorMessage = response.data.errorMessage;
 			});
+		} else {
+			// Showing error message instead of submitting the topic
+			self.topicsHttpError.submit = true;
+			self.errorMessage = 'the input exceeds 255 characters';
 		}
 	};
 
