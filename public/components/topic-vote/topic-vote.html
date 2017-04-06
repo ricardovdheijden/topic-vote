@@ -1,5 +1,5 @@
 <form class="well form-inline" name="topicCreateFrom" ng-submit="topicVoteCtrl.submitTopic(topicVoteCtrl.topic)">
-	<div ng-if="topicVoteCtrl.topicsHttpError.submit">An error occurred while submitting a new topic</div>
+	<div ng-if="topicVoteCtrl.topicsHttpError.submit">An error occurred while submitting a new topic: {{topicVoteCtrl.errorMessage}}</div>
 	<label for="inputTopic">New Topic:</label>
 	<input type="text" id="inputTopic" class="form-control" ng-model="topicVoteCtrl.topic" />
 	<input type="submit" class="btn btn-default" value="Submit" />

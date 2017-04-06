@@ -35,24 +35,33 @@ var routes = function(topics, topicIdCounter) {
 			res.json(topicsResponse);
 		})
 		.post(function(req, res) {
-			/* 
-			 * Filling the topic object with only specific fields.
-			 * This filters possible unwanted fields that are sent through req.body
-			 * req.body contains the JSON object parsed by body-parser
-			 */
-			var topic = {};
-			topic._id = topicIdCounter++;
-			topic.name = req.body.name;
-			topic.upvotes = 0;
-			topic.downvotes = 0;
+			// Checks if the length of the input does not exceed 255 characters
+			if (req.body.name.length > 255) {
+				// Responding with error status and message
+				res.status(500).json({
+					errorMessage: 'the input exceeds 255 characters'
+				})
+			} else {
+				/*
+				 * Filling the topic object with only specific fields.
+				 * This filters possible unwanted fields that are sent through req.body
+				 * req.body contains the JSON object parsed by body-parser
+				 */
+				var topic = {};
+				topic._id = topicIdCounter++;
+				topic.name = req.body.name;
+				topic.upvotes = 0;
+				topic.downvotes = 0;
 
-			/*
-			 * Adding the topic object to the collection and returning it as
-			 * reference since _id, upvotes and downvotes are created by the API
-			 */
-			topics.push(topic);
-			res.status(201).json(topic);
+				/*
+				 * Adding the topic object to the collection and returning it as
+				 * reference since _id, upvotes and downvotes are created by the API
+				 */
+				topics.push(topic);
+				res.status(201).json(topic);
+			}
 		});
+
 	/*
 	 * Router containing the POST method to vote for a topic
 	 * _id (number): the id of the topic to vote for
@@ -66,7 +75,9 @@ var routes = function(topics, topicIdCounter) {
 			if (voteTopic(_id, downvote)) {
 				res.status(201).send();
 			} else {
-				res.status(500).send('topic not found');
+				res.status(500).json({
+					errorMessage: 'topic not found'
+				});
 			}
 		});
 
