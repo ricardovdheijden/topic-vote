@@ -10,6 +10,7 @@ var port = process.env.PORT || 3000;
  * name:      the name of the topic
  * upvotes:   amount of upvotes
  * downvotes: amount of downvotes
+ * score:     calculation of upvotes - downvotes (with 0 as lowest score)
  */ 
 var topics = [];
 
