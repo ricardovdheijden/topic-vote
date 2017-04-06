@@ -4,13 +4,15 @@ angular.module('topicVote')
 	// Initiating variables needed
 	var self = this;
 	self.topics = [];
-	// Setting error variables to false in error object used in html to show errors
+	// Setting error variables to false in error object and errorMessage string empty that are used in html to show errors
+	self.errorMessage = '';
 	self.topicsHttpError = {
 		fetch: false,
 		submit: false,
 		vote: false
 	};
-	self.orderParameters = {
+	// Parameters that can be entered in the directive and will be used in the controller
+	self.resultParameters = {
 		limit: $scope.limit,
 		sortby: $scope.sortby,
 		descending: $scope.descending
@@ -44,18 +46,27 @@ angular.module('topicVote')
 	 * Assuming that submitting does not fail
 	 */
 	self.submitTopic = function(topicName) {
-		if (topicName) {
+		// Checking if the topic name does not exceed 255 characters
+		if (topicName.length <= 255) {
+			// Resetting error status and errorMessage
 			self.topicsHttpError.submit = false;
+			self.errorMessage = '';
+			// Creating a local topic object to send to the api
 			var topic = {};
 			topic.name = topicName;
 			topicsHttp.submit(topic).then(function(response) {
-				// Successful callback
-				self.topic = "";
-				self.fetchTopics(self.orderParameters.limit, self.orderParameters.sortby, self.orderParameters.descending);
-			}, function() {
+				// Successful callback: resetting the inputfield only when the POST succeeds
+				self.topic = '';
+				self.fetchTopics(self.resultParameters.limit, self.resultParameters.sortby, self.resultParameters.descending);
+			}, function(response) {
 				// In case of an error
 				self.topicsHttpError.submit = true;
+				self.errorMessage = response.data.errorMessage;
 			});
+		} else {
+			// Showing error message instead of submitting the topic
+			self.topicsHttpError.submit = true;
+			self.errorMessage = 'the input exceeds 255 characters';
 		}
 	};
 
@@ -69,13 +80,13 @@ angular.module('topicVote')
 		self.topicsHttpError.vote = false;
 		topicsHttp.vote(topicId, downvote).then(function(response) {
 			// Successful callback
-			self.fetchTopics(self.orderParameters.limit, self.orderParameters.sortby, self.orderParameters.descending);
+			self.fetchTopics(self.resultParameters.limit, self.resultParameters.sortby, self.resultParameters.descending);
 		}, function() {
 			// In case of an error
 			self.topicsHttpError.vote = true;
 		});
 	}
 
-	// Initially fetch the topics
-	self.fetchTopics(self.orderParameters.limit, self.orderParameters.sortby, self.orderParameters.descending);
+	// Initially fetch the topics when the page loads (and this controller gets loaded)
+	self.fetchTopics(self.resultParameters.limit, self.resultParameters.sortby, self.resultParameters.descending);
 }]);
