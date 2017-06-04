@@ -1,21 +1,25 @@
 <form class="well form-inline" name="topicCreateFrom" ng-submit="topicVoteCtrl.submitTopic(topicVoteCtrl.topic)">
-	<div ng-if="topicVoteCtrl.topicsHttpError.submit">An error occurred while submitting a new topic</div>
-	<label for="inputTopic">New Topic:</label>
+	<div ng-if="topicVoteCtrl.topicsHttpError.submit">An error occurred while submitting a new topic: {{topicVoteCtrl.errorMessage}}</div>
+	<label for="inputTopic" >New Topic (max 255 characters):</label>
 	<input type="text" id="inputTopic" class="form-control" ng-model="topicVoteCtrl.topic" />
-	<input type="submit" class="btn btn-default" value="Submit" />
+	<input type="submit" class="btn btn-default" ng-disabled="!topicVoteCtrl.topic" value="Submit" />
 </form>
 <div ng-if="topicVoteCtrl.topicsHttpError.fetch">An error occurred while loading the topics</div>
 <div ng-if="topicVoteCtrl.topicsHttpError.vote">An error occurred while voting for a topic</div>
 <p ng-show="!topicVoteCtrl.topics.length">No topics added yet</p>
 <table class="table table-hover" ng-show="topicVoteCtrl.topics.length">
 	<tr>
+		<th></th>
+		<th>Score</th>
 		<th>Topic</th>
 		<th>Upvotes</th>
 		<th>Downvotes</th>
 		<th>Vote</th>
 	</tr>
-	<!-- Looping through all the topics -->
+	<!-- Looping through all the topics $index is the current iteration, used for mumbering the rows-->
 	<tr ng-repeat="topic in topicVoteCtrl.topics">
+		<td>{{$index + 1}}</td>
+		<td>{{topic.score}}</td>
 		<td>{{topic.name}}</td>
 		<td>{{topic.upvotes}}</td>
 		<td>{{topic.downvotes}}</td>

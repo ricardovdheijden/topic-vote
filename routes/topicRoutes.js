@@ -35,24 +35,38 @@ var routes = function(topics, topicIdCounter) {
 			res.json(topicsResponse);
 		})
 		.post(function(req, res) {
-			/* 
-			 * Filling the topic object with only specific fields.
-			 * This filters possible unwanted fields that are sent through req.body
-			 * req.body contains the JSON object parsed by body-parser
-			 */
-			var topic = {};
-			topic._id = topicIdCounter++;
-			topic.name = req.body.name;
-			topic.upvotes = 0;
-			topic.downvotes = 0;
-
 			/*
-			 * Adding the topic object to the collection and returning it as
-			 * reference since _id, upvotes and downvotes are created by the API
+			 * Checks if the length of the input does not exceed 255 characters. Even when the fronend is
+			 * checking on length of the input field, it is needed to check also in the api for length
+			 * to be sure only valid data will be stored.
 			 */
-			topics.push(topic);
-			res.status(201).json(topic);
+			if (req.body.name.length > 255) {
+				// Responding with error status and message
+				res.status(500).json({
+					errorMessage: 'the input exceeds 255 characters'
+				})
+			} else {
+				/*
+				 * Filling the topic object with only specific fields.
+				 * This filters possible unwanted fields that are sent through req.body
+				 * req.body contains the JSON object parsed by body-parser
+				 */
+				var topic = {};
+				topic._id = topicIdCounter++;
+				topic.name = req.body.name;
+				topic.upvotes = 0;
+				topic.downvotes = 0;
+				topic.score = 0;
+
+				/*
+				 * Adding the topic object to the collection and returning it as
+				 * reference since _id, upvotes and downvotes are created by the API
+				 */
+				topics.push(topic);
+				res.status(201).json(topic);
+			}
 		});
+
 	/*
 	 * Router containing the POST method to vote for a topic
 	 * _id (number): the id of the topic to vote for
@@ -66,7 +80,9 @@ var routes = function(topics, topicIdCounter) {
 			if (voteTopic(_id, downvote)) {
 				res.status(201).send();
 			} else {
-				res.status(500).send('topic not found');
+				res.status(500).json({
+					errorMessage: 'topic not found'
+				});
 			}
 		});
 
@@ -85,6 +101,9 @@ var routes = function(topics, topicIdCounter) {
 				else topic.upvotes++;
 				// return value for the voteTopic function: adding was successful
 				success = true;
+				// Calculates the score based on upvotes - downvotes with a lowest score of 0
+				if (topic.upvotes - topic.downvotes > 0) topic.score = topic.upvotes - topic.downvotes;
+				else topic.score = 0;
 				// return value for the array find function: item was found
 				return true;
 			} else {
@@ -99,4 +118,5 @@ var routes = function(topics, topicIdCounter) {
 	return topicRouter
 };
 
+// Making the module available for importing
 module.exports = routes;
