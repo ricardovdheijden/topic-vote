@@ -1,15 +1,21 @@
 describe('topicVote.topicVoteController', function() {
-	
+	var $controller, UsersController;
 
-	it('should initialize', function() {
-		module('topicVote');
+	beforeEach(angular.mock.module('topicVote'));
 
-		var scope = {};
-		var ctrl;
+	// Inject the $controller service to create instances of the controller (topicVoteController) we want to test
+	beforeEach(inject(function(_$controller_) {
+	  $controller = _$controller_;
+	  topicVoteController = function() {
+            return $controller('topicVoteController', {
+                '$scope': scope,
+                'topicsHttp': topicsHttp
+            });
+        };
+	}));
 
-		inject(function($controller, topicsHttp) {
-			ctrl = $controller('topicVote', {$scope: scope});
-		});
-
+	// Verify our controller exists
+	it('should be defined', function() {
+	  expect(topicVoteController).toBeDefined();
 	});
 });
